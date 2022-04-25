@@ -2,11 +2,7 @@ import React from "react";
 import "./Footer.css";
 import whiteLogo from "../../images/logo.png";
 import { Link } from "react-router-dom";
-// import firebase from "firebase";
-import { useAuth } from "../SignUp/useAuth";
 const Footer = () => {
-  const auth = useAuth();
-  const uid = auth.user == undefined ? "sddfd" : auth.user.uid;
   return (
     <footer className="bg-color py-3">
       <div className="container">
@@ -45,11 +41,7 @@ const Footer = () => {
                 <Link to="/restaurants">Restaurants near me</Link>
               </li>
               <li>
-                {uid === process.env.REACT_APP_BASE_URL ? (
-                  <Link to="/admin">Admin Page</Link>
-                ) : (
-                  <div />
-                )}
+
               </li>
             </ul>
           </div>

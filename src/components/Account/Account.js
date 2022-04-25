@@ -5,29 +5,15 @@ import { Link } from "react-router-dom";
 import "./account.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruck, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../SignUp/useAuth";
 
-const Account = (props) => {
-  const [email, setemail] = useState();
-  const [name, setname] = useState();
-  const [image, setimage] = useState("");
-  const [uid, setuid] = useState("");
-  const [deliverydetails, setdeliverydetails] = useState("");
+export default function Account(props) {
+  // const { user } = useAuth();
+  // console.log(user);
+  // console.log(localStorage.getItem("UserData_foodie"));
+  // const { name } = ;
+  // console.log(name);
 
-  useEffect(() => {
-    const user = () => {
-      const user = firebase.auth().currentUser;
-
-      if (user) {
-        setimage(user.photoURL);
-        setname(user.displayName);
-        setemail(user.email);
-        setuid(user.uid);
-      }
-    };
-    user();
-  }, []);
-
-  console.log("UID: " + uid);
   return (
     <>
       <h1 className="profile-heading">My Profile</h1>
@@ -38,7 +24,7 @@ const Account = (props) => {
               <div class="media align-items-end profile-header">
                 <div class="profile mr-3">
                   <img
-                    src={image}
+                    // src={user.picture}
                     alt="..."
                     width="130"
                     class="rounded mb-2 img-thumbnail"
@@ -52,17 +38,17 @@ const Account = (props) => {
                 </div>
                 <div class="media-body mb-5 text-white">
                   <h4 class="mt-0 mb-0">
-                    {name}{" "}
-                    {uid === process.env.REACT_APP_BASE_URL ? (
-                      "(admin)"
+                    {localStorage.getItem("UserData_foodie")}
+                    {/* {uid === process.env.REACT_APP_BASE_URL ? ( */}
+                    {/* "(admin)"
                     ) : (
                       <div />
-                    )}
+                    )} */}
                   </h4>
                   <p class="small mb-4">
                     {" "}
                     <i class="fa fa-map-marker mr-2"></i>
-                    {email}
+                    {/* {user.email} */}
                   </p>
                 </div>
               </div>
@@ -93,6 +79,4 @@ const Account = (props) => {
       </div>
     </>
   );
-};
-
-export default Account;
+}

@@ -4,6 +4,7 @@ var breakfast = [
     name: "Begal and Cream Cheese",
     restaurant: "A Salt & Battery",
     category: "breakfast",
+    qty: "4",
     img: "https://i.imgur.com/BaS2G0b.png",
     description: "Pecorino smellY cheese melted cheese",
     story:

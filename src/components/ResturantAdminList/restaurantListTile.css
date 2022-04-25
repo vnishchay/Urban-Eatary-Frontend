@@ -7,3 +7,33 @@
 .horizontal-card-btn-container {
   width: 140px;
 }
+
+#root > div > div.page > div.content > div:nth-child(2) > div > ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  border-radius: 35px;
+}
+
+#root > div > div.page > div.content > div:nth-child(2) > div > ul > li {
+  float: left;
+  border: none;
+  /* margin-left: 50%; */
+}
+
+#root > div > div.page > div.content > div:nth-child(2) > div > ul > li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+#root > div > div.page > div.content > div:nth-child(2) > div > ul > li a:hover {
+  background-color: #111111;
+}

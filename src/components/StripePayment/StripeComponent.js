@@ -2,15 +2,16 @@ import React from "react";
 import { useState } from "react";
 import "./StripePayment.css";
 import StripeContainer from "./StripeContainer";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
-export default function StripeComponent(props) {
+function StripeComponent(props) {
   const [showItem, setShowItem] = useState(false);
   return (
     <div className="App">
       {showItem ? (
         <>
           <h2>Your card Details</h2>
-          <StripeContainer />
+          <StripeContainer grandTotal={props.grandTotal} />
         </>
       ) : (
         <>
@@ -24,3 +25,4 @@ export default function StripeComponent(props) {
     </div>
   );
 }
+export default StripeComponent

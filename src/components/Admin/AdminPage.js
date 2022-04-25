@@ -1,6 +1,6 @@
 import React from "react";
 import ProductForm from "../Form/ProductForm";
-import RestaurantForm from "../Form/restaurentForm";
+import RestaurantForm from "../Form/RestaurantForm";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./admin.css";
@@ -10,12 +10,15 @@ import OrdersList from "../OrdersAdmin/OrdersList";
 import Dashboard from "../Dashboard/Dashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
+import { useAuth0 } from "auth0-react";
+import UpdateRestaurant from "../Form/updateRestaurant";
+import UpdateProduct from "../Form/productUpdate";
 
-export default function AdminPage() {
+function AdminPage() {
   const [currentComponent, setcurrentComponent] = useState("Dashboard");
-  const [food, setfood] = useState(); 
-  // const [orders, setorders] = useState();
- const [restaurant, setrestaurant] = useState(); 
+  const [food, setfood] = useState();
+  const [restaurant, setrestaurant] = useState();
 
   return (
     <div>
@@ -82,6 +85,8 @@ export default function AdminPage() {
                   <a href="#">Add Products</a>
                 </span>
               </li>
+
+
             </ul>
           </ul>
         </div>
@@ -148,19 +153,65 @@ export default function AdminPage() {
           </div>
 
           {currentComponent === "Restaurant" ? (
-            <RestaurantAdminList setcurrentComponent={setcurrentComponent} setrestaurant={setrestaurant} />
+            <RestaurantAdminList
+              setcurrentComponent={setcurrentComponent}
+              setrestaurant={setrestaurant}
+            />
           ) : (
             <div />
           )}
 
-          {currentComponent === "Add Restaurant" ? <RestaurantForm setcurrentComponent={setcurrentComponent} restaurant={restaurant} /> : <div />}
+          {currentComponent === "Add Restaurant" ? (
+            <RestaurantForm
+              setcurrentComponent={setcurrentComponent}
+              restaurant={restaurant}
+            />
+          ) : (
+            <div />
+          )}
 
-          {currentComponent === "Products" ? <ProductAdminList setcurrentComponent={setcurrentComponent} setfood={setfood} /> : <div />}
+          {currentComponent === "Products" ? (
+            <ProductAdminList
+              setcurrentComponent={setcurrentComponent}
+              setfood={setfood}
+            />
+          ) : (
+            <div />
+          )}
 
-          {currentComponent === "Add Products" ? <ProductForm setcurrentComponent={setcurrentComponent} food={food} /> : <div />}
+          {currentComponent === "Add Products" ? (
+            <ProductForm
+              setcurrentComponent={setcurrentComponent}
+              food={food}
+            />
+          ) : (
+            <div />
+          )}
 
-          {currentComponent == "Dashboard" ? <Dashboard setcurrentComponent={setcurrentComponent} /> : <div />}
-          {currentComponent === "Orders" ? <OrdersList setcurrentComponent={setcurrentComponent} /> : <div />}
+
+          {currentComponent === "Update Restaurant" ? (
+            <UpdateRestaurant
+              restaurant={restaurant}
+            ></UpdateRestaurant>
+          ) : <></>}
+
+          {currentComponent === "Update Product" ? (
+            <UpdateProduct
+              food={food}
+            ></UpdateProduct>
+          ) : <></>}
+
+
+          {currentComponent == "Dashboard" ? (
+            <Dashboard setcurrentComponent={setcurrentComponent} />
+          ) : (
+            <div />
+          )}
+          {currentComponent === "Orders" ? (
+            <OrdersList setcurrentComponent={setcurrentComponent} />
+          ) : (
+            <div />
+          )}
 
           {/* <ProductForm/> */}
         </div>
@@ -168,3 +219,5 @@ export default function AdminPage() {
     </div>
   );
 }
+
+export default AdminPage

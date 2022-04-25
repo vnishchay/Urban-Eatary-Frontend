@@ -2,6 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import React, { useState } from "react";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -23,7 +24,7 @@ const CARD_OPTIONS = {
   },
 };
 
-export default function PaymentForm(props) {
+function PaymentForm({ grandTotal }) {
   const [success, setSuccess] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
@@ -38,13 +39,10 @@ export default function PaymentForm(props) {
     if (!error) {
       try {
         const { id } = paymentMethod;
-        const response = await axios.post(
-          "https://urban-eatery.herokuapp.com/payment",
-          {
-            amount: 1000,
-            id,
-          }
-        );
+        const response = await axios.post("http://localhost:3001/payment", {
+          amount: grandTotal,
+          id,
+        });
 
         if (response.data.success) {
           console.log("Successful payment");
@@ -80,3 +78,4 @@ export default function PaymentForm(props) {
     </>
   );
 }
+export default PaymentForm;

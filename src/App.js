@@ -2,43 +2,31 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { AuthProvider, PrivateRoute } from "./components/SignUp/useAuth";
+import {
+  AdminRoute,
+  Auth0ProviderWithHistory,
+} from "./components/SignUp/useAuth";
 import Header from "./components/Header/Header";
 import Banner from "./components/Banner/Banner";
 import Foods from "./components/Foods/Foods";
-import FoodDetails from "./components/FoodDetails/FoodDetails";
 import Blog from "./components/Blog/Blog";
 import Footer from "./components/Footer/Footer";
 import NotFound from "./components/NotFound/NotFound";
-import SignUp from "./components/SignUp/SignUp";
 import Shipment from "./components/Shipment/Shipment";
 import OrderComplete from "./components/OrderComplete/OrderComplete";
+import FoodDetails from "./components/FoodDetails/FoodDetails";
 import SearchResult from "./components/SearchResult/SearchResult";
 import Account from "./components/Account/Account";
 import Restaurent from "./components/Restaurant/Resturant";
 import PastOrder from "./components/PastOrder/FoodsPastOrder";
 import StripeComponent from "./components/StripePayment/StripeComponent";
 import Admin from "./components/Admin/AdminPage";
-import { AdminRoute } from "./components/SignUp/useAuth";
+import SignUp from "./components/SignUp/SignUp";
+import { AuthProvider } from "./components/SignUp/useAuth";
 function App() {
   const [cart, setCart] = useState([]);
+
   const [grandTotal, setGrandTotal] = useState(0);
-
-  function paymentHandler(amount) {
-    setGrandTotal(amount);
-  }
-
-  const cartHandler = (currentFood) => {
-    const alreadyAdded = cart.find((item) => item.id === currentFood.id);
-
-    if (alreadyAdded) {
-      const reamingCarts = cart.filter((item) => cart.id !== currentFood);
-      setCart(reamingCarts);
-    } else {
-      const newCart = [...cart, currentFood];
-      setCart(newCart);
-    }
-  };
 
   const [deliveryDetails, setDeliveryDetails] = useState({
     toDoor: "Delivery To Door",
@@ -47,11 +35,16 @@ function App() {
     address: null,
   });
 
+  const [restaurant, setrestaurant] = useState();
   const [orderDetails, setorderDetails] = useState({
     deliveryDetails: deliveryDetails,
     orderID: null,
     timestamp: null,
   });
+
+  function paymentHandler(amount) {
+    setGrandTotal(amount);
+  }
 
   const setorderDetailsHandler = (data) => {
     setorderDetails(data);
@@ -61,9 +54,24 @@ function App() {
     setDeliveryDetails(data);
   };
 
+  const cartHandler = (currentFood) => {
+    const alreadyAdded = cart.find((item) => item._id === currentFood._id);
+
+    const updatedCart = cart.filter(
+      (item) => item.restaurant === currentFood.restaurant
+    );
+
+    if (!alreadyAdded) {
+      console.log("cart handler");
+      const newCart = [...updatedCart, currentFood];
+      console.log(newCart);
+      setCart(newCart);
+    }
+  };
+
   const checkOutItemHandler = (foodID, foodQuantity) => {
     const newCart = cart.map((item) => {
-      if (item.id === foodID) {
+      if (item._id === foodID) {
         item.quantity = foodQuantity;
       }
       return item;
@@ -78,8 +86,8 @@ function App() {
   };
 
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <Switch>
           <Route exact path="/">
             <Header cart={cart} />
@@ -91,19 +99,23 @@ function App() {
 
           <Route path="/food/:id">
             <Header cart={cart} />
-            <FoodDetails cart={cart} cartHandler={cartHandler} />
+            <FoodDetails
+              cart={cart}
+              cartHandler={cartHandler}
+              setrestaurant={setrestaurant}
+            />
             <Footer />
           </Route>
 
           <Route path="/search=:searchQuery">
             <Header cart={cart} />
             <Banner />
-            <SearchResult />
+            {/* <SearchResult /> */}
             <Blog />
             <Footer />
           </Route>
 
-          <PrivateRoute path="/checkout">
+          <Route path="/checkout">
             <Header cart={cart} />
             <Shipment
               cart={cart}
@@ -114,11 +126,12 @@ function App() {
               checkOutItemHandler={checkOutItemHandler}
               clearCart={clearCart}
               paymentHandler={paymentHandler}
+            // restaurant={restaurant}
             />
             <Footer />
-          </PrivateRoute>
+          </Route>
 
-          <PrivateRoute path="/order-complete">
+          <Route path="/order-complete">
             <Header cart={cart} />
             <OrderComplete
               deliveryDetails={deliveryDetails}
@@ -126,10 +139,6 @@ function App() {
               orderDetails={orderDetails}
             />
             <Footer />
-          </PrivateRoute>
-
-          <Route path="/signup">
-            <SignUp />
           </Route>
 
           <Route path="/explore">
@@ -138,21 +147,29 @@ function App() {
             <Footer />
           </Route>
 
-          <PrivateRoute path="/account">
+          <Route path="/account">
             <Header cart={cart} />
             <Account />
             <Footer />
-          </PrivateRoute>
+          </Route>
 
-          <PrivateRoute exact path="/pastOrder">
+          <Route exact path="/pastOrder">
             <Header cart={cart} />
             <PastOrder cart={cart} orderDetails={orderDetails} />
             <Footer />
-          </PrivateRoute>
+          </Route>
 
-          <PrivateRoute path="/payment">
+          <Route path="/signup">
+            <SignUp login={false} />
+          </Route>
+
+          <Route path="/login">
+            <SignUp login={true} />
+          </Route>
+
+          <Route path="/payment">
             <StripeComponent grandTotal={grandTotal} />
-          </PrivateRoute>
+          </Route>
 
           <AdminRoute path="/admin">
             <Admin />
@@ -162,8 +179,8 @@ function App() {
             <NotFound />
           </Route>
         </Switch>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 

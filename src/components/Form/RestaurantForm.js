@@ -10,10 +10,13 @@ export default function RestaurantForm() {
   const { register, handleSubmit, watch, errors } = useForm();
   const [submitted, setsubmitted] = useState(false);
   const onSubmit = async (register) => {
-    const url =
-      "https://urban-eatery.herokuapp.com/api/v1/restaurant/createRestaurant";
+    const url = "http://localhost:3001/api/v1/restaurant/createRestaurant";
     axios
-      .post(url, register)
+      .post(url, register, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("authToken_foodie"),
+        },
+      })
       .then((res) => {
         if (res.status == 200 || res.status == 201) {
           setsubmitted(true);

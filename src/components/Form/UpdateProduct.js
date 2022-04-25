@@ -6,14 +6,15 @@ import { useForm } from "react-hook-form";
 import "./productform.css";
 import { useState, useEffect } from "react";
 
-export default function ProductForm() {
+export default function UpdateProduct() {
   // Getting restaurant restaurantList
   const config = {
     headers: {
-      authorization: "Bearer " + localStorage.getItem("authToken_foodie"),
+      'authorization': 'Bearer ' + localStorage.getItem("authToken_foodie")
     },
   };
-  const baseurl = "http://localhost:3001/api/v1/restaurant/getAllRestaurant";
+  const baseurl =
+    "http://localhost:3001/api/v1/restaurant/getAllRestaurant";
   const [restaurantList, setlist] = useState([]);
   useEffect(() => {
     const fetchdata = async () => {
@@ -34,9 +35,9 @@ export default function ProductForm() {
   const { register, handleSubmit, watch, errors } = useForm();
   const [submitted, setsubmitted] = useState(false);
   const onSubmit = (register) => {
-    const url = "http://localhost:3001/api/v1/food/createItem";
+    const url = "http://localhost:3001/api/v1/food/foodItem";
     axios
-      .post(url, register)
+      .post(url, config, register)
       .then((res) => {
         console.log(res.data);
         if (res.status == 201 || res.status == 200) {
@@ -88,23 +89,14 @@ export default function ProductForm() {
       <div class="form-group">
         <label for="image-link">Image Link</label>
         <input
-          type="file"
-          accept="images/.jpg, .png"
-          id="image-link"
-          name="img"
-          ref={register}
-          placeholder=""
-          required="true"
-        />
-        {/* <input
-          type="file"
+          type="text"
           class="form-control"
           id="image-link"
           name="img"
           ref={register}
           placeholder=""
           required="true"
-        /> */}
+        />
       </div>
       <div class="form-group">
         <label for="quantity">Quantity</label>

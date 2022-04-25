@@ -28,6 +28,11 @@
 	font-style: italic;
 }
 
+.fail-mgs {
+	animation: show-hide 1.5s ease-in-out 1 forwards;
+	font-style: italic;
+}
+
 @keyframes show-hide {
 	0% {
 		opacity: 0;

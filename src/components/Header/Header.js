@@ -14,7 +14,6 @@ import { useAuth } from "../SignUp/useAuth";
 
 const Header = (props) => {
   const auth = useAuth();
-
   return (
     <nav className="navbar navbar-expand navbar-light bg-white py-2  sticky-top">
       <div className="container">
@@ -23,15 +22,18 @@ const Header = (props) => {
         </Link>
 
         <ul className="navbar-nav align-items-center">
+          {localStorage.getItem("role_foodie") === "admin" && (
+            <li>
+              <Link to="/admin">Admin</Link>
+            </li>
+          )}
 
-        <li className="nav-item active">
+          <li className="nav-item active">
             <Link to="/explore" className="nav-link">
               <FontAwesomeIcon icon={faUtensils} />
               <span className="badge bg-light">Explore</span>
             </Link>
           </li>
-
-
 
           <li className="nav-item active">
             <Link to="/pastorder" className="nav-link">
@@ -40,7 +42,6 @@ const Header = (props) => {
             </Link>
           </li>
 
-    
           <li className="nav-item active">
             <Link to="/checkout" className="nav-link">
               <FontAwesomeIcon icon={faCartArrowDown} />
@@ -51,41 +52,41 @@ const Header = (props) => {
           </li>
 
           <li className="nav-item">
-            {auth.user ? (
+            {localStorage.getItem("authToken_foodie") ? (
               <Link to="/account" className="nav-link">
-                {auth.user.displayName}
+                {}
                 <img
                   className="ml-3 circle"
-                  src={auth.user.photoURL ? auth.user.photoURL : userPhoto}
+                  src={
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk68Nf1_1JXIcQ1XuiTaZH3FZRyj34GcyKDg&usqp=CAU"
+                  }
                   width="35px"
                   alt=""
                 />
               </Link>
             ) : (
-              <Link to="/signup" className="nav-link">
-                Login
-              </Link>
+              <></>
             )}
           </li>
 
-          <li className="nav-item">
-            {auth.user ? (
-              <Link to="/" className="nav-link">
-                <button
-                  onClick={() => {
-                    auth.signOut();
-                  }}
-                  className="btn btn-danger btn-rounded"
-                >
-                  Sign Out
-                </button>
+          {localStorage.getItem("authToken_foodie") && (
+            <Link to="/login" className="btn btn-danger btn-rounded">
+              <button
+                onClick={() => auth.signOut()}
+                className="btn btn-danger btn-rounded"
+              >
+                Sign Out
+              </button>
+            </Link>
+          )}
+
+          {!localStorage.getItem("authToken_foodie") && (
+            <div className="nav-link">
+              <Link to="/signup" className="btn btn-danger btn-rounded">
+                Login/SignUp
               </Link>
-            ) : (
-              <Link to="/signup" className="nav-link">
-                <button className="btn btn-danger btn-rounded">Sign Up</button>
-              </Link>
-            )}
-          </li>
+            </div>
+          )}
         </ul>
       </div>
     </nav>

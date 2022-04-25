@@ -5,6 +5,7 @@ var breakfast = [
     category: "breakfast",
     img: "https://i.imgur.com/BaS2G0b.png",
     description: "Pecorino smellY cheese melted cheese",
+    qty: "4",
     story:
       "Gummi bears topping pie pastry bonbon cupcake caramels. Muffin muffin jujubes donut",
     price: 13.99,

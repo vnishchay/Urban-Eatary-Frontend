@@ -3,7 +3,8 @@ import firebase from "../firebase-config";
 import "firebase/analytics";
 import "firebase/auth";
 import { Route, Redirect } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
+var axios = require("axios").default;
 const AuthContext = createContext();
 
 export const AuthProvider = (props) => {
@@ -16,26 +17,6 @@ export const AuthProvider = (props) => {
 export const useAuth = () => useContext(AuthContext);
 
 //***************** Redirect review item to signIn ************************
-export const PrivateRoute = ({ children, ...rest }) => {
-  const auth = useAuth();
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        auth.user ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/signup",
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
-  );
-};
 
 export const AdminRoute = ({ children, ...rest }) => {
   const user = useAuth();
@@ -43,7 +24,7 @@ export const AdminRoute = ({ children, ...rest }) => {
     <Route
       {...rest}
       render={({ location }) =>
-        user.user && user.user.uid === process.env.REACT_APP_BASE_URL ? (
+        localStorage.getItem("role_foodie") === "admin" ? (
           children
         ) : (
           <Redirect
@@ -59,88 +40,111 @@ export const AdminRoute = ({ children, ...rest }) => {
 };
 
 const getUser = (user) => {
-  const { email, displayName, photoURL } = user;
-  return { email, name: displayName, photo: photoURL };
+  try {
+    axios.get("http://localhost:3001/user/getMe").then((response) => {
+      return response.message;
+    });
+  } catch (e) {
+    return {
+      message: "not found",
+    };
+  }
 };
 
 const Auth = () => {
   const [user, setUser] = useState(null);
-
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        const currentUser = user;
-        setUser(currentUser);
-      }
-    });
+    const token = localStorage.getItem("authToken_foodie");
+    const data = localStorage.getItem("UserData_foodie");
+    setUser({ data, token });
   }, []);
 
   //***************** sign in with popup Start ************************
   const signInWithGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-
-    return firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then((result) => {
-        const signedInUser = getUser(result.user);
-        setUser(signedInUser);
-        window.history.back();
-        return result.user;
-      })
-      .catch((error) => {
-        setUser(null);
-        return error.message;
-      });
+    try {
+      axios
+        .post("http://localhost:3001/api/v1/loginGoogle", {})
+        .then((response) => {
+          console.log(response);
+        });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const signIn = (email, password) => {
-    return firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        setUser(result.user);
-        window.history.back();
-      })
-      .catch((error) => {
-        setUser(null);
-        return error.message;
-      });
+  const signIn = ({ email, password }) => {
+    console.log(email + password);
+    try {
+      axios
+        .post("http://localhost:3001/api/v1/user/login", {
+          email: email,
+          password: password,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.data.statusCode === 200) {
+            localStorage.setItem("authToken_foodie", response.data.token);
+            localStorage.setItem("UserData_foodie", response.data.data.name);
+            localStorage.setItem("role_foodie", response.data.data.role);
+            console.log(response.data.data.role);
+            setUser({ name: response.data.name, token: response.data.token });
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const signUp = (email, password, name) => {
-    return firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        firebase
-          .auth()
-          .currentUser.updateProfile({
-            displayName: name,
+  const signUp = ({
+    email,
+    password,
+    firstName,
+    lastName,
+    passwordConfirm,
+    phoneNumber,
+  }) => {
+    console.log(
+      email + password + firstName + lastName + passwordConfirm + phoneNumber
+    );
+    const signUpStatus = false;
+    try {
+      if (email && password && firstName && lastName) {
+        axios
+          .post("http://localhost:3001/api/v1/user/signup", {
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            passwordConfirm: password,
+            password: password,
+            phoneNumber: phoneNumber,
           })
-          .then(() => {
-            setUser(result.user);
-            window.history.back();
+          .then((response) => {
+            console.log(response);
+            if (response.data.statusCode === 201) {
+              localStorage.setItem("authToken_foodie", response.data.token);
+              localStorage.setItem("UserData_foodie", response.data.data);
+              setUser({
+                name: response.data.data.name,
+                token: response.data.token,
+              });
+            }
+            return response;
           });
-      })
-      .catch((error) => {
-        setUser(null);
-        return error.message;
-      });
+      }
+    } catch (err) {
+      console.log(err);
+      return "error";
+    }
+    return signUpStatus;
   };
 
   const signOut = () => {
-    return firebase
-      .auth()
-      .signOut()
-      .then((result) => {
-        setUser(null);
-        return true;
-      })
-      .catch((error) => {
-        console.log(error);
-        return error.message;
-      });
+    if (localStorage.getItem("authToken_foodie")) {
+      localStorage.removeItem("authToken_foodie");
+      localStorage.removeItem("role_foodie");
+      setUser(undefined);
+    }
+    // redirect to home page  @Himanshu
   };
 
   return {

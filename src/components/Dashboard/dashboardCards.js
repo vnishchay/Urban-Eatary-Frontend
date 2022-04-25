@@ -2,12 +2,10 @@ import axios from "axios";
 import firebase from "firebase";
 import React, { useEffect, useState } from "react";
 import "./dashboardCard.css";
-
 export default function DashBoardCards() {
   const config = {
     headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json",
+      'authorization': 'Bearer ' + localStorage.getItem("authToken_foodie")
     },
   };
 
@@ -21,12 +19,15 @@ export default function DashBoardCards() {
   const [profit, setProfit] = useState(0);
   const [restaurant, setrestaurant] = useState(0);
 
-  const baseurl =
-    "https://urban-eatery.herokuapp.com/api/v1/restaurant/getAllRestaurant  ";
+  // const baseurl =
+  //   "http://localhost:3001/api/v1/restaurant/getAllRestaurant  ";
+  const restaurantUrl =
+    "http://localhost:3001/api/v1/restaurant/getAllRestaurant";
+  const orderDetailUrl = "http://localhost:3001/api/v1/restaurant/getAllOrders";
   useEffect(() => {
     const fetchdata = async () => {
       await axios
-        .get(baseurl, config)
+        .get(restaurantUrl, config)
         .then((res) => {
           setrestaurant(res.data.data.length);
         })
@@ -36,6 +37,8 @@ export default function DashBoardCards() {
     };
     fetchdata();
 
+    // admin only access:
+    // getting the orders information
     adminRef.get().then((res) => {
       const data = res.data();
       setOrderQty(data.orderCount);

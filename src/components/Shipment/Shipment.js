@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import firebase from "../firebase-config";
+import axios from "axios";
 
 const Shipment = (props) => {
   useEffect(() => {
@@ -11,12 +12,11 @@ const Shipment = (props) => {
   }, []);
   const { toDoor, road, flat, businessName, address } = props.deliveryDetails;
   const { orderID, deliveryDetails } = props.orderDetails;
-  const [userid, setuserid] = useState();
+  const userid = '6249a3de3de8158d072584b9'
   const { register, handleSubmit, errors } = useForm();
+
   const onSubmit = (register) => {
-    console.log(register);
     props.deliveryDetailsHandler(register);
-    console.log("submitted in database");
     onOrderComplete();
   };
   const subTotal = props.cart.reduce((acc, crr) => {
@@ -27,16 +27,14 @@ const Shipment = (props) => {
     return acc + crr.quantity;
   }, 0);
 
+  const idlist = [];
+  props.cart.forEach(element => {
+    idlist.push({ itemId: element._id, quantity: 1 });
+  });
   const tax = (subTotal / 100) * 5;
   const deliveryFee = totalQuantity && 40;
   const grandTotal = subTotal + tax + deliveryFee;
-  useEffect(() => {
-    const user = () => {
-      const user = firebase.auth().currentUser;
-      setuserid(user.uid);
-    };
-    user();
-  }, []);
+
 
   function handlePayment() {
     props.paymentHandler(grandTotal);
@@ -44,55 +42,26 @@ const Shipment = (props) => {
   }
 
   async function onOrderComplete() {
-    const totalOrdersRef = await firebase.firestore().collection("orders");
-    const adminDataRef = await firebase
-      .firestore()
-      .collection("admin")
-      .doc("PXToN4KwoyUcMZFpFyCRBOQhvXj1");
-
-    adminDataRef.update({
-      totalSales: firebase.firestore.FieldValue.increment(grandTotal),
-      orderCount: firebase.firestore.FieldValue.increment(1),
-      productSalesCount: firebase.firestore.FieldValue.increment(totalQuantity),
-    });
-
-    const addressRef = await firebase
-      .firestore()
-      .collection("users")
-      .doc(userid);
-    const ordersRef = await firebase
-      .firestore()
-      .collection("users")
-      .doc(userid)
-      .collection("orders");
-
-    addressRef.update({
-      moneySpent: firebase.firestore.FieldValue.increment(grandTotal),
-      address: props.deliveryDetails,
-      orderCount: firebase.firestore.FieldValue.increment(1),
-    });
-
-    await totalOrdersRef.add({
-      products: props.cart,
-      address: props.deliveryDetails,
-    });
-
-    await ordersRef
-      .add({
-        products: props.cart,
-        address: props.deliveryDetails,
+    try {
+      const base_url = "http://localhost:3001/api/v1/order"
+      const data = {
+        restaurant: props.cart[0].restaurant,
+        foodItems: idlist,
+        totalPrice: subTotal,
+        address: "Sricity , Indianapolis"
+      };
+      axios.post(base_url + '/placeOrder', data, {
+        headers: {
+          'authorization': 'Bearer ' + localStorage.getItem("authToken_foodie")
+        },
+      }).then((res) => {
+        console.log(res)
       })
-      .then(function (docRef) {
-        props.setorderDetailsHandler({
-          deliveryDetails: props.deliveryDetails,
-          orderID: docRef.id,
-        });
 
-        console.log("Tutorial created with ID: ", docRef.id);
-      })
-      .catch(function (error) {
-        console.error("Error adding Tutorial: ", error);
-      });
+    } catch (err) {
+      console.log(err)
+    }
+
   }
 
   return (

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import allFoods from "../../fakeData/index";
 import burger from "../../images/foodicon/burger.png";
 import drink from "../../images/foodicon/cold drinks.png";
 
@@ -10,15 +9,25 @@ import sandwich from "../../images/foodicon/sandwich.png";
 import shawarma from "../../images/foodicon/shawarma.png";
 import FoodItem from "../FoodItem/FoodItem";
 import "./Foods.css";
+const axios = require('axios')
 
 const Restaurent = (props) => {
   const [foods, setFoods] = useState([]);
   const [restaurant, setrestaurant] = useState("A Salt & Battery");
   useEffect(() => {
-    setFoods(allFoods);
-  }, []);
+    axios.get('http://localhost:3001/api/v1/food/foodItem', {
+      headers: {
+        'authorization': 'Bearer ' + localStorage.getItem("authToken_foodie")
+      }
+    }).then((res) => {
+      console.log(res.data.data);
+      res.data.data.forEach(element => setFoods(foods => [...foods, element]));
+      console.log(foods)
+    })
+  },
+    []);
   const selectedRestaurant = foods.filter(
-    (food) => food.restaurant === restaurant
+    (food) => food.restaurant_name === restaurant
   );
 
   return (

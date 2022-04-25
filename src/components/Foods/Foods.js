@@ -1,6 +1,6 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import allFoods from "../../fakeData/index";
 import breakfast from "../../images/foodicon/breakfast.png";
 import burger from "../../images/foodicon/burger.png";
 import drink from "../../images/foodicon/cold drinks.png";
@@ -15,11 +15,19 @@ import "./Foods.css";
 
 const Foods = (props) => {
   const [foods, setFoods] = useState([]);
-  const [selectedFoodType, setSelectedFoodType] = useState("lunch");
+  const [selectedFoodType, setSelectedFoodType] = useState("dinner");
   const [selectedFastFoodType, setSelectedFastFoodType] = useState("pizza");
 
   useEffect(() => {
-    setFoods(allFoods);
+    axios.get('http://localhost:3001/api/v1/food/foodItem', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem("authToken_foodie")
+      }
+    }).then((res) => {
+      console.log(res.data.data);
+      res.data.data.forEach(element => setFoods(foods => [...foods, element]));
+      console.log(foods)
+    })
   }, []);
 
   const selectedFoods = foods.filter(
@@ -93,7 +101,7 @@ const Foods = (props) => {
 
         <div className="row my-5">
           {selectedFoods.map((food) => (
-            <FoodItem food={food} key={food.id} />
+            <FoodItem food={food} key={food._id} />
           ))}
         </div>
 
@@ -220,7 +228,7 @@ const Foods = (props) => {
 
         <div className="row my-5">
           {selectedFastFoods.map((food) => (
-            <FoodItem food={food} key={food.id} />
+            <FoodItem food={food} key={food._id} />
           ))}
         </div>
 

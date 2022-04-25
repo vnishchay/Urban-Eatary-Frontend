@@ -2,11 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const FoodItem = (props) => {
-  const { id, name, description, price, img } = props.food;
+  const { _id, name, description, price, img } = props.food;
+
 
   return (
     <div className="col-md-4 mb-4">
-      <Link to={"food/" + id}>
+      <Link to={"food/" + _id}>
         <div className="card text-center">
           <img src={img} alt="FoodItem" className="card-img-top" />
 
