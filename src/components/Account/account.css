@@ -1,0 +1,20 @@
+/*===== GOOGLE FONTS =====*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+.profile-heading {
+  font-family: "Dancing Script", cursive;
+  font-size: 5rem;
+  margin-top: 3rem;
+  text-shadow: 4px 4px 4px #aaa;
+}
+
+.profile-header {
+  transform: translateY(5rem);
+}
+
+/* body {
+  background: #654ea3;
+  background: -webkit-linear-gradient(to right, #654ea3, #eaafc8);
+  background: linear-gradient(to right, #654ea3, #eaafc8);
+  min-height: 100vh;
+} */
