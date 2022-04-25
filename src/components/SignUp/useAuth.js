@@ -41,7 +41,7 @@ export const AdminRoute = ({ children, ...rest }) => {
 
 const getUser = (user) => {
   try {
-    axios.get("http://localhost:3001/user/getMe").then((response) => {
+    axios.get("https://urban-eatary-backend.herokuapp.com/user/getMe").then((response) => {
       return response.message;
     });
   } catch (e) {
@@ -63,7 +63,7 @@ const Auth = () => {
   const signInWithGoogle = () => {
     try {
       axios
-        .post("http://localhost:3001/api/v1/loginGoogle", {})
+        .post("https://urban-eatary-backend.herokuapp.com/api/v1/loginGoogle", {})
         .then((response) => {
           console.log(response);
         });
@@ -76,7 +76,7 @@ const Auth = () => {
     console.log(email + password);
     try {
       axios
-        .post("http://localhost:3001/api/v1/user/login", {
+        .post("https://urban-eatary-backend.herokuapp.com/api/v1/user/login", {
           email: email,
           password: password,
         })
@@ -110,7 +110,7 @@ const Auth = () => {
     try {
       if (email && password && firstName && lastName) {
         axios
-          .post("http://localhost:3001/api/v1/user/signup", {
+          .post("https://urban-eatary-backend.herokuapp.com/api/v1/user/signup", {
             email: email,
             firstName: firstName,
             lastName: lastName,

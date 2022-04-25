@@ -14,7 +14,7 @@ const Banner = () => {
     const handleSearch = async () => {
         window.scrollBy(0, 525)
         if (searchQuery !== undefined) {
-            await axios.get(`http://localhost:3001/api/v1/food/search/${searchQuery}`, {
+            await axios.get(`https://urban-eatary-backend.herokuapp.com/api/v1/food/search/${searchQuery}`, {
                 headers: {
                     authorization:
                         "Bearer " + localStorage.getItem("authToken_foodie"),

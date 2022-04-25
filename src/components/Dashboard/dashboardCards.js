@@ -20,10 +20,10 @@ export default function DashBoardCards() {
   const [restaurant, setrestaurant] = useState(0);
 
   // const baseurl =
-  //   "http://localhost:3001/api/v1/restaurant/getAllRestaurant  ";
+  //   "https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/getAllRestaurant  ";
   const restaurantUrl =
-    "http://localhost:3001/api/v1/restaurant/getAllRestaurant";
-  const orderDetailUrl = "http://localhost:3001/api/v1/restaurant/getAllOrders";
+    "https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/getAllRestaurant";
+  const orderDetailUrl = "https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/getAllOrders";
   useEffect(() => {
     const fetchdata = async () => {
       await axios

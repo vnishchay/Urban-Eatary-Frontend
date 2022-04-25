@@ -16,7 +16,7 @@ const OrderComplete = (props) => {
   const userid = "6249a3de3de8158d072584b9";
   const [current_user, setcurrent_user] = useState();
   useEffect(() => {
-    // axios.get('http://localhost:3001/api/v1/food/')
+    // axios.get('https://urban-eatary-backend.herokuapp.com/api/v1/food/')
   })
 
 
