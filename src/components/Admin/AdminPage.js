@@ -212,8 +212,6 @@ function AdminPage() {
           ) : (
             <div />
           )}
-
-          {/* <ProductForm/> */}
         </div>
       </div>
     </div>

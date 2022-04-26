@@ -2,7 +2,6 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import React, { useState } from "react";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -66,7 +65,8 @@ function PaymentForm({ grandTotal }) {
               <CardElement options={CARD_OPTIONS} />
             </div>
           </fieldset>
-          <button className="stripeButton">Pay</button>
+          <Link to={'/order-complete'}
+          ><button className="stripeButton">Pay</button></Link>
         </form>
       ) : (
         <Redirect

@@ -7,7 +7,6 @@ import "./productform.css";
 import { useState, useEffect } from "react";
 
 export default function UpdateProduct() {
-  // Getting restaurant restaurantList
   const config = {
     headers: {
       'authorization': 'Bearer ' + localStorage.getItem("authToken_foodie")

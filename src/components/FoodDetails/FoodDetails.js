@@ -6,13 +6,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-// import allFoods from "../../fakeData/index";
-// import suggestionFood from "../../fakeData/suggestionFood";
 import RecommendFood from "../RecommendFood/RecommendFood";
 import axios from "axios";
 import "./FoodDetails.css";
 
-// dealing with only one food item
 const FoodDetails = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -20,8 +17,6 @@ const FoodDetails = (props) => {
   let history = useHistory();
 
   const { id } = useParams();
-  // taking out the food item using the id in the URL
-
   const [quantity, setQuantity] = useState(1);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isMore, setIsMore] = useState(false);
@@ -89,12 +84,10 @@ const FoodDetails = (props) => {
     }
   };
 
-  // message for more items added to the cart
   if (isMore) {
     setTimeout(() => setIsMore(false), 4500);
   }
 
-  // for showing that the food item is successfully added to the cart
   if (isSuccess) {
     setTimeout(() => setIsSuccess(false), 1500);
   }
@@ -104,7 +97,6 @@ const FoodDetails = (props) => {
     setSuggestFoods(suggestFood);
   }, [suggestionFood]);
 
-  // randomly selecting the food items
   let m = 0;
   let n = 3;
   const newSuggestionFood = () => {

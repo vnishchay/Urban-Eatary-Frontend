@@ -29,7 +29,6 @@ function Items({ currentItems }) {
 
 export default function OrdersList() {
   const [list, setlist] = useState([]);
-  // const ordersRef = firebase.firestore().collection("orders");
   useEffect(() => {
     const fetch = async () => {
       axios

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Banner.css'
-import { useEffect } from 'react';
-// import SearchResult from '../SearchResult/SearchResult';
 import axios from 'axios';
 import FoodItem from '../FoodItem/FoodItem';
 

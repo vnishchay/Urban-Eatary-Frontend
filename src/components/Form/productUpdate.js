@@ -1,5 +1,3 @@
-// user this form to create a register
-// update register
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -7,7 +5,6 @@ import "./productform.css";
 import { useState, useEffect } from "react";
 
 export default function UpdateProduct(props) {
-    // Getting restaurant restaurantList
     const { _id, name, restaurant, category, description, price, qty, img } = props.food;
 
     const config = {
@@ -34,7 +31,6 @@ export default function UpdateProduct(props) {
         fetchdata();
     }, []);
 
-    // managing form
     const { register, handleSubmit, watch, errors } = useForm();
     const [submitted, setsubmitted] = useState(false);
     const onSubmit = (register) => {

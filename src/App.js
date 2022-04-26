@@ -4,7 +4,6 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
   AdminRoute,
-  Auth0ProviderWithHistory,
 } from "./components/SignUp/useAuth";
 import Header from "./components/Header/Header";
 import Banner from "./components/Banner/Banner";
@@ -15,7 +14,6 @@ import NotFound from "./components/NotFound/NotFound";
 import Shipment from "./components/Shipment/Shipment";
 import OrderComplete from "./components/OrderComplete/OrderComplete";
 import FoodDetails from "./components/FoodDetails/FoodDetails";
-import SearchResult from "./components/SearchResult/SearchResult";
 import Account from "./components/Account/Account";
 import Restaurent from "./components/Restaurant/Resturant";
 import PastOrder from "./components/PastOrder/FoodsPastOrder";
@@ -110,7 +108,6 @@ function App() {
           <Route path="/search=:searchQuery">
             <Header cart={cart} />
             <Banner />
-            {/* <SearchResult /> */}
             <Blog />
             <Footer />
           </Route>
@@ -126,7 +123,6 @@ function App() {
               checkOutItemHandler={checkOutItemHandler}
               clearCart={clearCart}
               paymentHandler={paymentHandler}
-            // restaurant={restaurant}
             />
             <Footer />
           </Route>

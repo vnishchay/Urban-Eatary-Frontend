@@ -1,5 +1,3 @@
-// user this form to create a register
-// update register
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -7,7 +5,6 @@ import "./productform.css";
 import { useState, useEffect } from "react";
 
 export default function ProductForm() {
-  // Getting restaurant restaurantList
   const config = {
     headers: {
       authorization: "Bearer " + localStorage.getItem("authToken_foodie"),
@@ -30,7 +27,6 @@ export default function ProductForm() {
     fetchdata();
   }, []);
 
-  // managing form
   const { register, handleSubmit, watch, errors } = useForm();
   const [submitted, setsubmitted] = useState(false);
   const onSubmit = (register) => {
@@ -96,15 +92,6 @@ export default function ProductForm() {
           placeholder=""
           required="true"
         />
-        {/* <input
-          type="file"
-          class="form-control"
-          id="image-link"
-          name="img"
-          ref={register}
-          placeholder=""
-          required="true"
-        /> */}
       </div>
       <div class="form-group">
         <label for="quantity">Quantity</label>
