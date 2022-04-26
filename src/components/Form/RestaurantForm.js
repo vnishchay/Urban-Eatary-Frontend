@@ -7,7 +7,7 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function RestaurantForm() {
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const [submitted, setsubmitted] = useState(false);
   const onSubmit = async (register) => {
     const url = "https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/createRestaurant";
@@ -18,7 +18,7 @@ export default function RestaurantForm() {
         },
       })
       .then((res) => {
-        if (res.status == 200 || res.status == 201) {
+        if (res.status === 200 || res.status === 201) {
           setsubmitted(true);
         }
       })
@@ -66,7 +66,7 @@ export default function RestaurantForm() {
       <button type="button btn-lg" class="btn btn-outline-warning">
         Add Restaurant
       </button>
-      {submitted == true ? <h2>Successfully Added</h2> : <div />}
+      {submitted === true ? <h2>Successfully Added</h2> : <div />}
     </form>
   );
 }

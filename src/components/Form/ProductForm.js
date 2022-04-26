@@ -27,7 +27,7 @@ export default function ProductForm() {
     fetchdata();
   }, []);
 
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const [submitted, setsubmitted] = useState(false);
   const onSubmit = (register) => {
     const url = "https://urban-eatary-backend.herokuapp.com/api/v1/food/createItem";
@@ -35,7 +35,7 @@ export default function ProductForm() {
       .post(url, register)
       .then((res) => {
         console.log(res.data);
-        if (res.status == 201 || res.status == 200) {
+        if (res.status === 201 || res.status === 200) {
           setsubmitted(true);
         }
       })
@@ -128,7 +128,7 @@ export default function ProductForm() {
       <button type="button btn-lg" class="btn btn-outline-success">
         Add Product
       </button>
-      {submitted == true ? <h2> Product Added</h2> : <div />}
+      {submitted === true ? <h2> Product Added</h2> : <div />}
     </form>
   );
 }

@@ -39,7 +39,7 @@ export default function UpdateProduct() {
       .post(url, config, register)
       .then((res) => {
         console.log(res.data);
-        if (res.status == 201 || res.status == 200) {
+        if (res.status === 201 || res.status === 200) {
           setsubmitted(true);
         }
       })
@@ -132,7 +132,7 @@ export default function UpdateProduct() {
       <button type="button btn-lg" class="btn btn-outline-success">
         Add Product
       </button>
-      {submitted == true ? <h2> Product Added</h2> : <div />}
+      {submitted === true ? <h2> Product Added</h2> : <div />}
     </form>
   );
 }

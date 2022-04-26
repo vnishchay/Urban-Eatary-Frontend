@@ -7,9 +7,7 @@ import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
 
 function Items({ currentItems, props }) {
-  // console.log(currentItems);
   const handleDelete = (data) => {
-    // console.log(data);
     const id = data._id;
     const url = `https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/deleteRestaurant/${id}`;
     axios
@@ -20,11 +18,11 @@ function Items({ currentItems, props }) {
       })
       .then((res) => {
         console.log(res);
-        if (res.status == 204) {
+        if (res.status === 204) {
           console.log("Successfully deleted");
           props.setcurrentComponent("Dashboard");
         }
-        if (res.status == 400) {
+        if (res.status === 400) {
           console.log("Cant Delete.... ");
         }
       });
@@ -65,7 +63,6 @@ function Items({ currentItems, props }) {
                                 props.setcurrentComponent("Update Restaurant");
                               }}
                               size="2x"
-                              // color="blue"
                               icon={faEdit}
                             />
                           </button>
@@ -77,7 +74,6 @@ function Items({ currentItems, props }) {
                             <FontAwesomeIcon
                               className="delete-icon"
                               size="2x"
-                              // color="red"
                               icon={faTrashAlt}
                             />
                           </button>
@@ -95,15 +91,6 @@ function Items({ currentItems, props }) {
 }
 
 export default function RestaurantAdminList(props) {
-  // getting restaurant list from database
-  const config = {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json",
-    },
-  };
-  // const baseurl =
-  //   "https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/getAllRestaurant";
   const baseurl = "https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/getAllRestaurant";
   const [list, setlist] = useState([]);
   useEffect(() => {
@@ -129,19 +116,14 @@ export default function RestaurantAdminList(props) {
   // console.log(list);
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
-  // Here we use item offsets; we could also use page offsets
-  // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 4;
   useEffect(() => {
-    // Fetch items from another resources.
     const endOffset = itemOffset + itemsPerPage;
     console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     setCurrentItems(list.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(list.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, list]);
-
-  // Invoke when user click to request another page.
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % list.length;
     console.log(

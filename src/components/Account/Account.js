@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
 import "./../Foods/Foods.css";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./account.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruck, faHeart } from "@fortawesome/free-solid-svg-icons";
 
-export default function Account(props) {
+export default function Account() {
   return (
     <>
       <h1 className="profile-heading">My Profile</h1>

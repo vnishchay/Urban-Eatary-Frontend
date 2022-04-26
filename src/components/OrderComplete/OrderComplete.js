@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MapImg from "../../images/img/map.png";
-
 import Rider from '../../images/img/rider.png';
 import RiderHelmet from '../../images/img/helmet.png';
-import axios from "axios";
 
 const OrderComplete = (props) => {
 
@@ -13,15 +11,7 @@ const OrderComplete = (props) => {
 
   const { flat, road } = props.deliveryDetails;
   const { orderID } = props.orderDetails;
-  const userid = "6249a3de3de8158d072584b9";
-  const [current_user, setcurrent_user] = useState();
-  useEffect(() => {
-    // axios.get('https://urban-eatary-backend.herokuapp.com/api/v1/food/')
-  })
-
-
   const cancelorder = () => {
-
   }
 
   return (

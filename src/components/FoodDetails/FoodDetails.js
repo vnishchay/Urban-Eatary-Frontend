@@ -20,7 +20,6 @@ const FoodDetails = (props) => {
   const [quantity, setQuantity] = useState(1);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isMore, setIsMore] = useState(false);
-  const [allFoods, setAllFoods] = useState([]);
   const [suggestionFood, setSuggestionFood] = useState([]); // for getting shuffled food data
   const [suggestFoods, setSuggestFoods] = useState([]); // for getting 3 recommended food
   const [currentFood, setCurrentFood] = useState({});
@@ -42,7 +41,6 @@ const FoodDetails = (props) => {
       })
       .then((result) => {
         const allFoodData = result.data.data;
-        setAllFoods(allFoodData);
         setSuggestionFood(shuffle(allFoodData));
         setCurrentFood(allFoodData.find((food) => food._id === id));
         axios
@@ -186,7 +184,7 @@ const FoodDetails = (props) => {
                       Hurry! only {parseInt(currentFood.qty)} left
                     </p>
                   )}
-                {currentFood.qty && parseInt(currentFood.qty) == 0 && (
+                {currentFood.qty && parseInt(currentFood.qty) === 0 && (
                   <p className="ml-3 qty-mgs text-danger">
                     Sorry! out of stock!
                   </p>

@@ -20,10 +20,10 @@ function Items({ currentItems, props }) {
         },
       },
     ).then((res) => {
-      if (res.status == 200) {
+      if (res.status === 200) {
         props.setcurrentComponent("Dashboard");
       }
-      if (res.status == 400) {
+      if (res.status === 400) {
         console.log("Cant Delete.... ");
       }
     });

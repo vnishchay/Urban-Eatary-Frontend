@@ -10,8 +10,6 @@ import OrdersList from "../OrdersAdmin/OrdersList";
 import Dashboard from "../Dashboard/Dashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
-import { useAuth0 } from "auth0-react";
 import UpdateRestaurant from "../Form/updateRestaurant";
 import UpdateProduct from "../Form/productUpdate";
 
@@ -33,7 +31,7 @@ function AdminPage() {
               >
                 <span
                   className={
-                    currentComponent == "Restaurant"
+                    currentComponent === "Restaurant"
                       ? "active nav-link"
                       : "nav-link"
                   }
@@ -47,7 +45,7 @@ function AdminPage() {
               >
                 <span
                   className={
-                    currentComponent == "Add Restaurant"
+                    currentComponent === "Add Restaurant"
                       ? "active nav-link"
                       : "nav-link"
                   }
@@ -62,7 +60,7 @@ function AdminPage() {
               >
                 <span
                   className={
-                    currentComponent == "Products"
+                    currentComponent === "Products"
                       ? "active nav-link"
                       : "nav-link"
                   }
@@ -77,7 +75,7 @@ function AdminPage() {
               >
                 <span
                   className={
-                    currentComponent == "Add Products"
+                    currentComponent === "Add Products"
                       ? "active nav-link"
                       : "nav-link"
                   }
@@ -101,7 +99,7 @@ function AdminPage() {
             >
               <span
                 className={
-                  currentComponent == "Dashboard"
+                  currentComponent === "Dashboard"
                     ? "active nav-link"
                     : "nav-link"
                 }
@@ -117,7 +115,7 @@ function AdminPage() {
               <span
                 to="resturantPage"
                 className={
-                  currentComponent == "Orders" ? "active nav-link" : "nav-link"
+                  currentComponent === "Orders" ? "active nav-link" : "nav-link"
                 }
               >
                 <a href="#">Orders</a>
@@ -202,7 +200,7 @@ function AdminPage() {
           ) : <></>}
 
 
-          {currentComponent == "Dashboard" ? (
+          {currentComponent === "Dashboard" ? (
             <Dashboard setcurrentComponent={setcurrentComponent} />
           ) : (
             <div />

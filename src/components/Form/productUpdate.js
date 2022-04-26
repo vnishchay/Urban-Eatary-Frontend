@@ -5,7 +5,7 @@ import "./productform.css";
 import { useState, useEffect } from "react";
 
 export default function UpdateProduct(props) {
-    const { _id, name, restaurant, category, description, price, qty, img } = props.food;
+    const { _id, name, category, description, price, qty, img } = props.food;
 
     const config = {
         headers: {
@@ -31,7 +31,7 @@ export default function UpdateProduct(props) {
         fetchdata();
     }, []);
 
-    const { register, handleSubmit, watch, errors } = useForm();
+    const { register, handleSubmit } = useForm();
     const [submitted, setsubmitted] = useState(false);
     const onSubmit = (register) => {
         console.log("onSubmit called")
@@ -52,7 +52,7 @@ export default function UpdateProduct(props) {
             .patch(url, register)
             .then((res) => {
                 console.log(res.data);
-                if (res.status == 201 || res.status == 200) {
+                if (res.status === 201 || res.status === 200) {
                     setsubmitted(true);
                 }
             })
@@ -151,7 +151,7 @@ export default function UpdateProduct(props) {
             <button type="button btn-lg" class="btn btn-outline-success">
                 Update Product
             </button>
-            {submitted == true ? <h2> Product Updated</h2> : <div />}
+            {submitted === true ? <h2> Product Updated</h2> : <div />}
         </form>
     );
 }

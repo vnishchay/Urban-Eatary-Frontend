@@ -7,7 +7,7 @@ import { useAuth } from "../SignUp/useAuth";
 
 const SignUp = ({ login }) => {
   const [returningUser, setReturningUser] = useState(login);
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
   const auth = useAuth();
 
