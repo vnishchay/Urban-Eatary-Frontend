@@ -8,11 +8,6 @@ import { faTruck, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../SignUp/useAuth";
 
 export default function Account(props) {
-  // const { user } = useAuth();
-  // console.log(user);
-  // console.log(localStorage.getItem("UserData_foodie"));
-  // const { name } = ;
-  // console.log(name);
 
   return (
     <>
