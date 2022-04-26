@@ -17,7 +17,6 @@ function AdminPage() {
   const [currentComponent, setcurrentComponent] = useState("Dashboard");
   const [food, setfood] = useState();
   const [restaurant, setrestaurant] = useState();
-
   return (
     <div>
       <div class="sidebar">

@@ -5,9 +5,7 @@ import "./PastOrder.css";
 import firebase from "../firebase-config";
 import { useAuth } from "../SignUp/useAuth";
 
-const FoodsPastOrder = (props) => {
-  const [type, setType] = useState("pastOrder");
-  const userauth = useAuth();
+const FoodsPastOrder = () => {
   const [foods, setFoods] = useState([]);
   const [userid, setuserid] = useState();
 
