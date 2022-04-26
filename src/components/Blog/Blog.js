@@ -13,10 +13,12 @@ const Blog = () => {
         },
       })
         .then(function (response) {
+          //   console.log(response);
           return response.json();
         })
         .then(function (myJson) {
           setBlogs(myJson);
+          //   console.log(myJson);
         });
     };
     getData();

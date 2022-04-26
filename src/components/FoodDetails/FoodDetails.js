@@ -6,10 +6,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+// import allFoods from "../../fakeData/index";
+// import suggestionFood from "../../fakeData/suggestionFood";
 import RecommendFood from "../RecommendFood/RecommendFood";
 import axios from "axios";
 import "./FoodDetails.css";
 
+// dealing with only one food item
 const FoodDetails = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -17,9 +20,12 @@ const FoodDetails = (props) => {
   let history = useHistory();
 
   const { id } = useParams();
+  // taking out the food item using the id in the URL
+
   const [quantity, setQuantity] = useState(1);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isMore, setIsMore] = useState(false);
+  const [allFoods, setAllFoods] = useState([]);
   const [suggestionFood, setSuggestionFood] = useState([]); // for getting shuffled food data
   const [suggestFoods, setSuggestFoods] = useState([]); // for getting 3 recommended food
   const [currentFood, setCurrentFood] = useState({});
@@ -34,18 +40,19 @@ const FoodDetails = (props) => {
 
   useEffect(() => {
     axios
-      .get(`https://urban-eatary-backend.herokuapp.com/api/v1/food/foodItem`, {
+      .get(`http://localhost:3001/api/v1/food/foodItem`, {
         headers: {
           authorization: "Bearer " + localStorage.getItem("authToken_foodie"),
         },
       })
       .then((result) => {
         const allFoodData = result.data.data;
+        setAllFoods(allFoodData);
         setSuggestionFood(shuffle(allFoodData));
         setCurrentFood(allFoodData.find((food) => food._id === id));
         axios
           .get(
-            `https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/getRestaurant/${currentFood.restaurant}`,
+            `http://localhost:3001/api/v1/restaurant/getRestaurant/${currentFood.restaurant}`,
             {
               headers: {
                 authorization:
@@ -82,10 +89,12 @@ const FoodDetails = (props) => {
     }
   };
 
+  // message for more items added to the cart
   if (isMore) {
     setTimeout(() => setIsMore(false), 4500);
   }
 
+  // for showing that the food item is successfully added to the cart
   if (isSuccess) {
     setTimeout(() => setIsSuccess(false), 1500);
   }
@@ -95,6 +104,7 @@ const FoodDetails = (props) => {
     setSuggestFoods(suggestFood);
   }, [suggestionFood]);
 
+  // randomly selecting the food items
   let m = 0;
   let n = 3;
   const newSuggestionFood = () => {
@@ -184,7 +194,7 @@ const FoodDetails = (props) => {
                       Hurry! only {parseInt(currentFood.qty)} left
                     </p>
                   )}
-                {currentFood.qty && parseInt(currentFood.qty) === 0 && (
+                {currentFood.qty && parseInt(currentFood.qty) == 0 && (
                   <p className="ml-3 qty-mgs text-danger">
                     Sorry! out of stock!
                   </p>

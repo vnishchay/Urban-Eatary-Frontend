@@ -7,13 +7,14 @@ import "./productform.css";
 import { useState, useEffect } from "react";
 
 export default function UpdateProduct() {
+  // Getting restaurant restaurantList
   const config = {
     headers: {
       'authorization': 'Bearer ' + localStorage.getItem("authToken_foodie")
     },
   };
   const baseurl =
-    "https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/getAllRestaurant";
+    "http://localhost:3001/api/v1/restaurant/getAllRestaurant";
   const [restaurantList, setlist] = useState([]);
   useEffect(() => {
     const fetchdata = async () => {
@@ -34,12 +35,12 @@ export default function UpdateProduct() {
   const { register, handleSubmit, watch, errors } = useForm();
   const [submitted, setsubmitted] = useState(false);
   const onSubmit = (register) => {
-    const url = "https://urban-eatary-backend.herokuapp.com/api/v1/food/foodItem";
+    const url = "http://localhost:3001/api/v1/food/foodItem";
     axios
       .post(url, config, register)
       .then((res) => {
         console.log(res.data);
-        if (res.status === 201 || res.status === 200) {
+        if (res.status == 201 || res.status == 200) {
           setsubmitted(true);
         }
       })
@@ -132,7 +133,7 @@ export default function UpdateProduct() {
       <button type="button btn-lg" class="btn btn-outline-success">
         Add Product
       </button>
-      {submitted === true ? <h2> Product Added</h2> : <div />}
+      {submitted == true ? <h2> Product Added</h2> : <div />}
     </form>
   );
 }

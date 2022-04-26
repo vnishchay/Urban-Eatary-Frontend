@@ -1,3 +1,5 @@
+// user this form to create a register
+// update register
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -5,7 +7,8 @@ import "./productform.css";
 import { useState, useEffect } from "react";
 
 export default function UpdateProduct(props) {
-    const { _id, name, category, description, price, qty, img } = props.food;
+    // Getting restaurant restaurantList
+    const { _id, name, restaurant, category, description, price, qty, img } = props.food;
 
     const config = {
         headers: {
@@ -14,7 +17,7 @@ export default function UpdateProduct(props) {
         },
     };
     const baseurl =
-        "https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/getAllRestaurant";
+        "http://localhost:3001/api/v1/restaurant/getAllRestaurant";
     const [restaurantList, setlist] = useState([]);
     useEffect(() => {
         const fetchdata = async () => {
@@ -31,11 +34,12 @@ export default function UpdateProduct(props) {
         fetchdata();
     }, []);
 
-    const { register, handleSubmit } = useForm();
+    // managing form
+    const { register, handleSubmit, watch, errors } = useForm();
     const [submitted, setsubmitted] = useState(false);
     const onSubmit = (register) => {
         console.log("onSubmit called")
-        const url = `https://urban-eatary-backend.herokuapp.com/api/v1/food/updateItem/${_id}`;
+        const url = `http://localhost:3001/api/v1/food/updateItem/${_id}`;
         let r_id;
         console.log(register)
         restaurantList.forEach(element => {
@@ -52,7 +56,7 @@ export default function UpdateProduct(props) {
             .patch(url, register)
             .then((res) => {
                 console.log(res.data);
-                if (res.status === 201 || res.status === 200) {
+                if (res.status == 201 || res.status == 200) {
                     setsubmitted(true);
                 }
             })
@@ -151,7 +155,7 @@ export default function UpdateProduct(props) {
             <button type="button btn-lg" class="btn btn-outline-success">
                 Update Product
             </button>
-            {submitted === true ? <h2> Product Updated</h2> : <div />}
+            {submitted == true ? <h2> Product Updated</h2> : <div />}
         </form>
     );
 }

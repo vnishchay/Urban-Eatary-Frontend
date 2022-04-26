@@ -19,7 +19,7 @@ const Foods = (props) => {
   const [selectedFastFoodType, setSelectedFastFoodType] = useState("pizza");
 
   useEffect(() => {
-    axios.get('https://urban-eatary-backend.herokuapp.com/api/v1/food/foodItem', {
+    axios.get('http://localhost:3001/api/v1/food/foodItem', {
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem("authToken_foodie")
       }

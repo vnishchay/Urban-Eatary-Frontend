@@ -1,11 +1,19 @@
+import React, { useEffect, useState } from "react";
 import "./../Foods/Foods.css";
-import React from "react";
+import firebase from "../firebase-config";
 import { Link } from "react-router-dom";
 import "./account.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruck, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../SignUp/useAuth";
 
-export default function Account() {
+export default function Account(props) {
+  // const { user } = useAuth();
+  // console.log(user);
+  // console.log(localStorage.getItem("UserData_foodie"));
+  // const { name } = ;
+  // console.log(name);
+
   return (
     <>
       <h1 className="profile-heading">My Profile</h1>
@@ -16,10 +24,12 @@ export default function Account() {
               <div class="media align-items-end profile-header">
                 <div class="profile mr-3">
                   <img
+                    // src={user.picture}
                     alt="..."
                     width="130"
                     class="rounded mb-2 img-thumbnail"
                   />
+
                   <Link to="/pastorder">
                     <a href="#" class="btn btn-dark btn-sm btn-block">
                       My Orders
@@ -29,11 +39,16 @@ export default function Account() {
                 <div class="media-body mb-5 text-white">
                   <h4 class="mt-0 mb-0">
                     {localStorage.getItem("UserData_foodie")}
-
+                    {/* {uid === process.env.REACT_APP_BASE_URL ? ( */}
+                    {/* "(admin)"
+                    ) : (
+                      <div />
+                    )} */}
                   </h4>
                   <p class="small mb-4">
                     {" "}
                     <i class="fa fa-map-marker mr-2"></i>
+                    {/* {user.email} */}
                   </p>
                 </div>
               </div>

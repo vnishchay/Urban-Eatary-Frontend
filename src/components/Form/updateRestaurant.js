@@ -1,3 +1,5 @@
+// user this form to create a register
+// update register
 import React from "react";
 import { useForm } from "react-hook-form";
 import "./productform.css";
@@ -11,7 +13,7 @@ export default function UpdateRestaurant(props) {
     },
   };
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, watch, errors } = useForm();
   const [submitted, setsubmitted] = useState(false);
   const { _id, name, address, phoneNumber } = props.restaurant;
 
@@ -22,11 +24,11 @@ export default function UpdateRestaurant(props) {
     if (register.address) register.address = address;
     if (register.phoneNumber) register.phoneNumber = phoneNumber;
     if (_id !== undefined) {
-      const url = `https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/updateRestaurant/${_id}`;
+      const url = `http://localhost:3001/api/v1/restaurant/updateRestaurant/${_id}`;
       axios
         .patch(url, register, config)
         .then((res) => {
-          if (res.status === 200 || res.status === 201) {
+          if (res.status == 200 || res.status == 201) {
             setsubmitted(true);
           }
         })
@@ -74,7 +76,7 @@ export default function UpdateRestaurant(props) {
       <button type="button btn-lg" class="btn btn-outline-warning">
         Update Restaurant
       </button>
-      {submitted === true ? <h2>Successfully Updated</h2> : <div />}
+      {submitted == true ? <h2>Successfully Updated</h2> : <div />}
     </form>
   );
 }

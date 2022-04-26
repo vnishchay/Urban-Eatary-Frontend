@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Banner.css'
+import { useEffect } from 'react';
+// import SearchResult from '../SearchResult/SearchResult';
 import axios from 'axios';
 import FoodItem from '../FoodItem/FoodItem';
 
@@ -12,7 +14,7 @@ const Banner = () => {
     const handleSearch = async () => {
         window.scrollBy(0, 525)
         if (searchQuery !== undefined) {
-            await axios.get(`https://urban-eatary-backend.herokuapp.com/api/v1/food/search/${searchQuery}`, {
+            await axios.get(`http://localhost:3001/api/v1/food/search/${searchQuery}`, {
                 headers: {
                     authorization:
                         "Bearer " + localStorage.getItem("authToken_foodie"),

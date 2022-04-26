@@ -2,6 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import React, { useState } from "react";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -38,7 +39,7 @@ function PaymentForm({ grandTotal }) {
     if (!error) {
       try {
         const { id } = paymentMethod;
-        const response = await axios.post("https://urban-eatary-backend.herokuapp.com/payment", {
+        const response = await axios.post("http://localhost:3001/payment", {
           amount: grandTotal,
           id,
         });
@@ -65,8 +66,7 @@ function PaymentForm({ grandTotal }) {
               <CardElement options={CARD_OPTIONS} />
             </div>
           </fieldset>
-          <Link to={'/order-complete'}
-          ><button className="stripeButton">Pay</button></Link>
+          <button className="stripeButton">Pay</button>
         </form>
       ) : (
         <Redirect

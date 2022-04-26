@@ -15,7 +15,7 @@ const Restaurent = (props) => {
   const [foods, setFoods] = useState([]);
   const [restaurant, setrestaurant] = useState("A Salt & Battery");
   useEffect(() => {
-    axios.get('https://urban-eatary-backend.herokuapp.com/api/v1/food/foodItem', {
+    axios.get('http://localhost:3001/api/v1/food/foodItem', {
       headers: {
         'authorization': 'Bearer ' + localStorage.getItem("authToken_foodie")
       }

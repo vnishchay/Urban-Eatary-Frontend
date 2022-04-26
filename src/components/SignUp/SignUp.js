@@ -7,7 +7,7 @@ import { useAuth } from "../SignUp/useAuth";
 
 const SignUp = ({ login }) => {
   const [returningUser, setReturningUser] = useState(login);
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, watch, errors } = useForm();
 
   const auth = useAuth();
 
@@ -36,6 +36,10 @@ const SignUp = ({ login }) => {
           {returningUser ? (
             <form onSubmit={handleSubmit(onSubmit)} className="py-3">
               <h1 className="lead text-center py-3">Welcome back!</h1>
+              {/* {auth.user != null && (
+              <p className="text-danger">* {auth.user.error}</p>
+            )} */}
+
               <div className="form-group">
                 <input
                   name="email"
@@ -73,7 +77,7 @@ const SignUp = ({ login }) => {
 
               <button
                 className="btn btn-success  btn-block"
-              // onClick={auth.signInWithGoogle}
+                // onClick={auth.signInWithGoogle}
               >
                 Sign in with Google
               </button>
@@ -85,6 +89,10 @@ const SignUp = ({ login }) => {
             </form>
           ) : (
             <form onSubmit={handleSubmit(onSubmit)} className="py-5">
+              {/* {auth.user != null && (
+              <p className="text-danger">* {auth.user.error}</p>
+            )} */}
+
               <div className="form-group">
                 <input
                   name="firstName"
@@ -131,6 +139,12 @@ const SignUp = ({ login }) => {
                   name="password"
                   className="form-control"
                   ref={register({
+                    // required: "Password is required",
+                    // pattern: {
+                    //     value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/i,
+                    //     message:
+                    //         "Minimum eight characters, at least one uppercase letter, one lowercase letter and one number",
+                    // },
                   })}
                   placeholder="Password"
                 />
@@ -144,8 +158,14 @@ const SignUp = ({ login }) => {
                   type="password"
                   name="confirmPassword"
                   className="form-control"
+                  // ref={register({
+                  //     validate: (value) => value === watch("password"),
+                  // })}
                   placeholder="Confirm Password"
                 />
+                {/* {errors.confirm_password && (
+                                <span className="error">Passwords don't match.</span>
+                            )} */}
               </div>
 
               <div className="form-group">

@@ -19,8 +19,11 @@ export default function DashBoardCards() {
   const [profit, setProfit] = useState(0);
   const [restaurant, setrestaurant] = useState(0);
 
+  // const baseurl =
+  //   "http://localhost:3001/api/v1/restaurant/getAllRestaurant  ";
   const restaurantUrl =
-    "https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/getAllRestaurant";
+    "http://localhost:3001/api/v1/restaurant/getAllRestaurant";
+  const orderDetailUrl = "http://localhost:3001/api/v1/restaurant/getAllOrders";
   useEffect(() => {
     const fetchdata = async () => {
       await axios
@@ -34,6 +37,8 @@ export default function DashBoardCards() {
     };
     fetchdata();
 
+    // admin only access:
+    // getting the orders information
     adminRef.get().then((res) => {
       const data = res.data();
       setOrderQty(data.orderCount);

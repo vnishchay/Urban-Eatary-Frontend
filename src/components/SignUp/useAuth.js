@@ -1,7 +1,9 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
+import firebase from "../firebase-config";
 import "firebase/analytics";
 import "firebase/auth";
 import { Route, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 var axios = require("axios").default;
 const AuthContext = createContext();
 
@@ -39,7 +41,7 @@ export const AdminRoute = ({ children, ...rest }) => {
 
 const getUser = (user) => {
   try {
-    axios.get("https://urban-eatary-backend.herokuapp.com/user/getMe").then((response) => {
+    axios.get("http://localhost:3001/user/getMe").then((response) => {
       return response.message;
     });
   } catch (e) {
@@ -61,7 +63,7 @@ const Auth = () => {
   const signInWithGoogle = () => {
     try {
       axios
-        .post("https://urban-eatary-backend.herokuapp.com/api/v1/loginGoogle", {})
+        .post("http://localhost:3001/api/v1/loginGoogle", {})
         .then((response) => {
           console.log(response);
         });
@@ -74,7 +76,7 @@ const Auth = () => {
     console.log(email + password);
     try {
       axios
-        .post("https://urban-eatary-backend.herokuapp.com/api/v1/user/login", {
+        .post("http://localhost:3001/api/v1/user/login", {
           email: email,
           password: password,
         })
@@ -108,7 +110,7 @@ const Auth = () => {
     try {
       if (email && password && firstName && lastName) {
         axios
-          .post("https://urban-eatary-backend.herokuapp.com/api/v1/user/signup", {
+          .post("http://localhost:3001/api/v1/user/signup", {
             email: email,
             firstName: firstName,
             lastName: lastName,
