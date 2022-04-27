@@ -66,7 +66,7 @@ function PaymentForm({ grandTotal }) {
               <CardElement options={CARD_OPTIONS} />
             </div>
           </fieldset>
-          <button className="stripeButton">Pay</button>
+          <Link to={'/order-complete'}><button className="stripeButton">Pay</button></Link>
         </form>
       ) : (
         <Redirect
