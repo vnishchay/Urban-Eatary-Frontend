@@ -1,8 +1,10 @@
 {
 	"name": "urban-eatery",
 	"version": "0.1.0",
-	"node_version": "16.x",
 	"private": true,
+	"engines": {
+		"node": ">=14.x"
+	},
 	"dependencies": {
 		"@auth0/auth0-react": "^1.9.0",
 		"@fortawesome/fontawesome-svg-core": "^1.2.29",
