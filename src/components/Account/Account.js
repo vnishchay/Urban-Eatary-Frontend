@@ -8,12 +8,7 @@ import { faTruck, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../SignUp/useAuth";
 
 export default function Account(props) {
-  // const { user } = useAuth();
-  // console.log(user);
-  // console.log(localStorage.getItem("UserData_foodie"));
-  // const { name } = ;
-  // console.log(name);
-
+  console.log(props)
   return (
     <>
       <h1 className="profile-heading">My Profile</h1>
@@ -38,7 +33,7 @@ export default function Account(props) {
                 </div>
                 <div class="media-body mb-5 text-white">
                   <h4 class="mt-0 mb-0">
-                    {localStorage.getItem("UserData_foodie")}
+                    {"Admin user"}
                     {/* {uid === process.env.REACT_APP_BASE_URL ? ( */}
                     {/* "(admin)"
                     ) : (

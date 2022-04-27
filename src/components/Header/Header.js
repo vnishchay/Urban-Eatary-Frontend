@@ -2,12 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import Logo from "../../images/logo2.png";
-import userPhoto from "../../images/ICON/Group 2.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartArrowDown,
   faUtensils,
-  faStore,
   faHamburger,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../SignUp/useAuth";
@@ -54,7 +52,7 @@ const Header = (props) => {
           <li className="nav-item">
             {localStorage.getItem("authToken_foodie") ? (
               <Link to="/account" className="nav-link">
-                {}
+                { }
                 <img
                   className="ml-3 circle"
                   src={
