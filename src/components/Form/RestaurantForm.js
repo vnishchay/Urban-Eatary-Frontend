@@ -10,7 +10,7 @@ export default function RestaurantForm() {
   const { register, handleSubmit, watch, errors } = useForm();
   const [submitted, setsubmitted] = useState(false);
   const onSubmit = async (register) => {
-    const url = "http://localhost:3001/api/v1/restaurant/createRestaurant";
+    const url = "https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/createRestaurant";
     axios
       .post(url, register, {
         headers: {

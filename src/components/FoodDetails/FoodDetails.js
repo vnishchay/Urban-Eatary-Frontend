@@ -40,7 +40,7 @@ const FoodDetails = (props) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/api/v1/food/foodItem`, {
+      .get(`https://urban-eatary-backend.herokuapp.com/api/v1/food/foodItem`, {
         headers: {
           authorization: "Bearer " + localStorage.getItem("authToken_foodie"),
         },
@@ -52,7 +52,7 @@ const FoodDetails = (props) => {
         setCurrentFood(allFoodData.find((food) => food._id === id));
         axios
           .get(
-            `http://localhost:3001/api/v1/restaurant/getRestaurant/${currentFood.restaurant}`,
+            `https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/getRestaurant/${currentFood.restaurant}`,
             {
               headers: {
                 authorization:

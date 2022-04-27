@@ -24,7 +24,7 @@ export default function UpdateRestaurant(props) {
     if (register.address) register.address = address;
     if (register.phoneNumber) register.phoneNumber = phoneNumber;
     if (_id !== undefined) {
-      const url = `http://localhost:3001/api/v1/restaurant/updateRestaurant/${_id}`;
+      const url = `https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/updateRestaurant/${_id}`;
       axios
         .patch(url, register, config)
         .then((res) => {

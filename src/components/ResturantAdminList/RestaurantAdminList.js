@@ -11,7 +11,7 @@ function Items({ currentItems, props }) {
   const handleDelete = (data) => {
     // console.log(data);
     const id = data._id;
-    const url = `http://localhost:3001/api/v1/restaurant/deleteRestaurant/${id}`;
+    const url = `https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/deleteRestaurant/${id}`;
     axios
       .delete(url, {
         headers: {
@@ -103,8 +103,8 @@ export default function RestaurantAdminList(props) {
     },
   };
   // const baseurl =
-  //   "http://localhost:3001/api/v1/restaurant/getAllRestaurant";
-  const baseurl = "http://localhost:3001/api/v1/restaurant/getAllRestaurant";
+  //   "https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/getAllRestaurant";
+  const baseurl = "https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/getAllRestaurant";
   const [list, setlist] = useState([]);
   useEffect(() => {
     console.log("started searching");

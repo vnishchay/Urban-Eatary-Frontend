@@ -43,7 +43,7 @@ const Shipment = (props) => {
 
   async function onOrderComplete() {
     try {
-      const base_url = "http://localhost:3001/api/v1/order"
+      const base_url = "https://urban-eatary-backend.herokuapp.com/api/v1/order"
       const data = {
         restaurant: props.cart[0].restaurant,
         foodItems: idlist,

@@ -8,7 +8,7 @@ export default function OrderTile(orders) {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:3001/api/v1/food/foodItem/${orders.foodItems[0].itemId}`,
+        `https://urban-eatary-backend.herokuapp.com/api/v1/food/foodItem/${orders.foodItems[0].itemId}`,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("authToken_foodie"),

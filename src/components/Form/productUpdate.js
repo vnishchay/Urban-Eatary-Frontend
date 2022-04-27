@@ -17,7 +17,7 @@ export default function UpdateProduct(props) {
         },
     };
     const baseurl =
-        "http://localhost:3001/api/v1/restaurant/getAllRestaurant";
+        "https://urban-eatary-backend.herokuapp.com/api/v1/restaurant/getAllRestaurant";
     const [restaurantList, setlist] = useState([]);
     useEffect(() => {
         const fetchdata = async () => {
@@ -39,7 +39,7 @@ export default function UpdateProduct(props) {
     const [submitted, setsubmitted] = useState(false);
     const onSubmit = (register) => {
         console.log("onSubmit called")
-        const url = `http://localhost:3001/api/v1/food/updateItem/${_id}`;
+        const url = `https://urban-eatary-backend.herokuapp.com/api/v1/food/updateItem/${_id}`;
         let r_id;
         console.log(register)
         restaurantList.forEach(element => {

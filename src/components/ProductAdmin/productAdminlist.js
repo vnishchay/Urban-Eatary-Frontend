@@ -10,7 +10,7 @@ import "./restauranttile.css";
 function Items({ currentItems, props }) {
   const handleDelete = (data) => {
     const id = data._id;
-    const url = `http://localhost:3001/api/v1/food/deleteItem/${id}`;
+    const url = `https://urban-eatary-backend.herokuapp.com/api/v1/food/deleteItem/${id}`;
     axios.delete(url, {
       id: id
     },
@@ -98,7 +98,7 @@ export default function ProductAdminList(props) {
       'authorization': 'Bearer ' + localStorage.getItem("authToken_foodie")
     },
   };
-  const baseurl = "http://localhost:3001/api/v1/food/foodItem";
+  const baseurl = "https://urban-eatary-backend.herokuapp.com/api/v1/food/foodItem";
   const [list, setlist] = useState([]);
   useEffect(() => {
     console.log("started searching");

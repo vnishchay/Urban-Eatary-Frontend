@@ -33,7 +33,7 @@ export default function OrdersList() {
   useEffect(() => {
     const fetch = async () => {
       axios
-        .get("http://localhost:3001/api/v1/order/allOrders", {
+        .get("https://urban-eatary-backend.herokuapp.com/api/v1/order/allOrders", {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("authToken_foodie"),
           },
