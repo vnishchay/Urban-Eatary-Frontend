@@ -26,7 +26,7 @@ const FoodItemPastOrders = ({ _id }) => {
           <div className="card-body">
             <h5>{item.name}</h5>
             <p>{item.description}</p>
-            <h4>₹{item.price * 40}</h4>
+            {item && <h4>₹{item.price.toFixed(1) * 40}</h4>}
           </div>
           <Button />
         </div>
