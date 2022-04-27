@@ -8,6 +8,10 @@
 
 ## Group Id: 3
 
+# Credentials 
+  email : admin@admin.com
+  password: 1Qwertyu
+
 # Contributors
 
 | Name                | Roll Number  |
