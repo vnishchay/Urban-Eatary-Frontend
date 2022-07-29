@@ -25,29 +25,35 @@ const Header = (props) => {
               <Link to="/admin">Admin</Link>
             </li>
           )}
-
+       
           <li className="nav-item active">
             <Link to="/explore" className="nav-link">
               <FontAwesomeIcon icon={faUtensils} />
               <span className="badge bg-light">Explore</span>
             </Link>
           </li>
-
+        
+          {localStorage.getItem("authToken_foodie") &&
           <li className="nav-item active">
             <Link to="/pastorder" className="nav-link">
               <FontAwesomeIcon icon={faHamburger} />
               <span className="badge bg-light">My Orders</span>
             </Link>
           </li>
+ }
+        
 
           <li className="nav-item active">
-            <Link to="/checkout" className="nav-link">
+            <Link 
+            to= { localStorage.getItem("authToken_foodie") ?  "/checkout"  : "/login" }
+            className="nav-link">
               <FontAwesomeIcon icon={faCartArrowDown} />
               <span className="badge bg-light">
                 Cart&nbsp;{props.cart.length}
               </span>
             </Link>
-          </li>
+          </li> 
+
 
           <li className="nav-item">
             {localStorage.getItem("authToken_foodie") ? (
@@ -80,7 +86,7 @@ const Header = (props) => {
 
           {!localStorage.getItem("authToken_foodie") && (
             <div className="nav-link">
-              <Link to="/signup" className="btn btn-danger btn-rounded">
+              <Link to="/login" className="btn btn-danger btn-rounded">
                 Login/SignUp
               </Link>
             </div>

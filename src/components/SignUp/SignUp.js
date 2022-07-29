@@ -45,7 +45,8 @@ const SignUp = ({ login }) => {
                   name="email"
                   className="form-control"
                   ref={register({ required: true })}
-                  placeholder="Email"
+                  placeholder="admin@admin.com"
+                  value="admin@admin.com"
                 />
                 {errors.email && (
                   <span className="error">Email is required</span>
@@ -58,7 +59,8 @@ const SignUp = ({ login }) => {
                   name="password"
                   className="form-control"
                   ref={register({ required: true })}
-                  placeholder="Password"
+                  placeholder="1Qwertyu"
+                  value="1Qwertyu"
                 />
                 {errors.password && (
                   <span className="error">Password is required</span>

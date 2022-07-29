@@ -4,7 +4,6 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
   AdminRoute,
-  Auth0ProviderWithHistory,
 } from "./components/SignUp/useAuth";
 import Header from "./components/Header/Header";
 import Banner from "./components/Banner/Banner";
@@ -76,7 +75,6 @@ function App() {
       }
       return item;
     });
-
     const filteredCart = newCart.filter((item) => item.quantity > 0);
     setCart(filteredCart);
   };
